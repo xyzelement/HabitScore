@@ -5,22 +5,30 @@ Handlebars.registerHelper('json', function(context) {
 });
 
 Handlebars.registerHelper('habit', function(context) {
+  var done = ($.inArray(today(), context.dates) > -1);
+
   out = '<input type="checkbox" class="test" name="' 
     + context._id  + '" ';
   
-  if(context.done) { out += "checked" };
+  if(done) { out += "checked" };
 
   out += '>' + context.name +'</input>';
-  if (context.done) {
+  
+  if (done) {
     out += "☺";
   }
+
+
   return out;
 });
 
+function today() {
+  var t = new Date();
+  return "" + t.getFullYear() + "_" +(t.getMonth() + 1) +  "_" + (t.getDate() + 1);
+}
+
 Handlebars.registerHelper("today", function()       {
-	var t = new Date();
-	var x = (t.getMonth() + 1) + "/" + (t.getDate() + 1) + "/" + t.getFullYear();
-	return x;
+  return today();
 });  
 
 
@@ -66,7 +74,14 @@ Template.today.events({'submit': function() {
 Template.today.events({'change .test': function(event, template) {
   event.preventDefault();
   var box = template.find("input[name="+this._id+"]");
-  Habits.update({_id: this._id}, {$set: {done: box.checked}});
+
+  var date = template.find("input[name=the_date]").value;
+
+  if (box.checked) {
+    Habits.update({_id: this._id}, {$push: {dates: date}});
+  } else {
+    Habits.update({_id: this._id}, {$pull: {dates: date}});
+  }
 }});
 
 Template.debug.events({
@@ -78,7 +93,7 @@ Template.debug.events({
 Template.add.events(okCancelEvents('#add-habit',
   {
     ok: function (text, evt) {
-      var id = Habits.insert({name: text, user:"ed", done: false});      
+      var id = Habits.insert({name: text, user:"ed", done: false, dates: []});      
       evt.target.value = "";
     }
   }));
