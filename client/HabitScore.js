@@ -1,6 +1,5 @@
 Habits = new Meteor.Collection("habits");
 
-
 Handlebars.registerHelper('json', function(context) {
   return JSON.stringify(context);
 });
@@ -22,8 +21,6 @@ Handlebars.registerHelper("today", function()       {
 	var t = new Date();
 	var x = (t.getMonth() + 1) + "/" + (t.getDate() + 1) + "/" + t.getFullYear();
 	return x;
-	//var y = new Date(t);
-	//return y;
 });  
 
 
@@ -64,15 +61,12 @@ Template.today.events({'submit': function() {
     $.each($('#date_form').serializeArray(), function() { 
       alert(this.name + ":"+ this.value);
     });
-
 }});
 
 Template.today.events({'change .test': function(event, template) {
-
   event.preventDefault();
   var box = template.find("input[name="+this._id+"]");
   Habits.update({_id: this._id}, {$set: {done: box.checked}});
-
 }});
 
 Template.debug.events({
