@@ -29,15 +29,15 @@
 <template name="today">
   <hr/>
   <form role="form">
-    {{today}}
+
+    <input type="button" id="previous_date" value="-"/>
+    <input type="text"   class="form-control" id="picker">
+    <input type="button" id="next_date" value="+"/>
+
     <INPUT TYPE=HIDDEN NAME="the_date" value="{{today}}">
-    <ul>
     {{#each habits}}
-      <li>
-          {{{habit this}}}
-      </li>
+      {{{habit this}}}
     {{/each}}
-    </ul>
     <input type="submit" name="mysubmit" value="Save!" />
   </form>
 </template>

@@ -6,25 +6,20 @@ Handlebars.registerHelper('json', function(context) {
 
 Handlebars.registerHelper('habit', function(context) {
   var done = ($.inArray(today(), context.dates) > -1);
-
-  out = '<input type="checkbox" class="test" name="' 
-    + context._id  + '" ';
-  
+  out = '<div class="checkbox"><label><input type="checkbox" class="test" name="' + context._id  + '" ';
   if(done) { out += "checked" };
-
   out += '>' + context.name +'</input>';
-  
-  if (done) {
-    out += "☺";
+  if (done) { 
+    out += "☺";     
   }
-
-
+  out += "</label></div>";
   return out;
 });
 
 function today() {
-  var t = new Date();
-  return "" + t.getFullYear() + "_" +(t.getMonth() + 1) +  "_" + (t.getDate() + 1);
+  //var t = new Date();
+  //return "" + t.getFullYear() + "_" +(t.getMonth() + 1) +  "_" + (t.getDate() + 1);
+  return moment().format('MMMM Do YYYY, h:mm:ss a');
 }
 
 Handlebars.registerHelper("today", function()       {
@@ -35,6 +30,38 @@ Handlebars.registerHelper("today", function()       {
 Template.debug.habits = function () {
   return Habits.find({});
 };
+
+Template.today.rendered = function() {
+  $('#picker').datepicker({
+      format: "DD, MM d, yyyy",
+      todayBtn: "linked",
+      keyboardNavigation: false,
+      forceParse: false,
+      todayHighlight: true
+  });
+  $('#picker').datepicker('setDate', new Date());
+  $('#picker').datepicker()
+    .on("changeDate", function(e){
+        //alert("hi!");
+        console.log(".");
+    });  
+
+}
+
+Template.today.events({'click #next_date': function() {
+  var date1 = $('#picker').datepicker('getDate');
+  var date = new Date( Date.parse( date1 ) ); 
+  date.setDate( date.getDate() + 1 );
+  $('#picker').datepicker('setDate', date );
+}});
+
+Template.today.events({'click #previous_date': function() {
+  var date1 = $('#picker').datepicker('getDate');
+  var date = new Date( Date.parse( date1 ) ); 
+  date.setDate( date.getDate() - 1 );
+  $('#picker').datepicker('setDate', date );
+}});
+
 
 Template.today.habits = function () {
   return Habits.find({});
@@ -65,11 +92,6 @@ var okCancelEvents = function (selector, callbacks) {
 };
 
 
-Template.today.events({'submit': function() {
-    $.each($('#date_form').serializeArray(), function() { 
-      alert(this.name + ":"+ this.value);
-    });
-}});
 
 Template.today.events({'change .test': function(event, template) {
   event.preventDefault();
@@ -78,6 +100,8 @@ Template.today.events({'change .test': function(event, template) {
   var date = template.find("input[name=the_date]").value;
 
   if (box.checked) {
+    //EMTODO: Would be nice to treat this as a "set" to avoid 
+    //adding the same date twice.
     Habits.update({_id: this._id}, {$push: {dates: date}});
   } else {
     Habits.update({_id: this._id}, {$pull: {dates: date}});
@@ -97,3 +121,5 @@ Template.add.events(okCancelEvents('#add-habit',
       evt.target.value = "";
     }
   }));
+
+
