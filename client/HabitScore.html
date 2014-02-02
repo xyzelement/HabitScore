@@ -1,0 +1,53 @@
+
+
+<body>
+  <div id="add-pane">
+    {{> add}}
+  </div>
+
+  <div id="habits-pane">
+    {{> habits}}
+  </div>
+
+  <div id="today-pane">
+    {{> today}}
+  </div>
+
+  <div id="debug-pane">
+    {{> debug}}
+  </div>
+</body>
+
+<template name="add">  
+  <hr/>
+  <input type="text" id="add-habit" placeholder="New Habit" />
+</template>
+
+<template name="habits">
+</template>
+
+<template name="today">
+  <hr/>
+  <form role="form">
+    {{today}}
+    <INPUT TYPE=HIDDEN NAME="the_date" value="{{today}}">
+    <ul>
+    {{#each habits}}
+      <li>
+          {{{habit this}}}
+      </li>
+    {{/each}}
+    </ul>
+    <input type="submit" name="mysubmit" value="Save!" />
+  </form>
+</template>
+
+<template name="debug">  
+  <hr/>
+  <small>
+    {{#each habits}}
+      {{json this}}<br/>
+    {{/each}}
+    <a class="dropAll" href="#">Drop All</a>
+  </small>
+</template>
