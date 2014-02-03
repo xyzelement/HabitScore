@@ -1,16 +1,17 @@
 
 
 <body>
+
+  <div id="today-pane">
+    {{> today}}
+  </div>
+
   <div id="add-pane">
     {{> add}}
   </div>
 
   <div id="habits-pane">
     {{> habits}}
-  </div>
-
-  <div id="today-pane">
-    {{> today}}
   </div>
 
   <div id="debug-pane">
@@ -30,15 +31,15 @@
   <hr/>
   <form role="form">
 
-    <input type="button" id="previous_date" value="-"/>
-    <input type="text"   class="form-control" id="picker">
-    <input type="button" id="next_date" value="+"/>
+    <div class="input-append">
+      <input type="button" id="previous_date" class="btn btn-primary" value="-"/>
+      <input type="text"   id="picker"        class="form-control input-sm"    disabled>
+      <input type="button" id="next_date"     class="btn btn-primary" value="+"/>
+    </div>
 
-    <INPUT TYPE=HIDDEN NAME="the_date" value="{{today}}">
     {{#each habits}}
       {{{habit this}}}
     {{/each}}
-    <input type="submit" name="mysubmit" value="Save!" />
   </form>
 </template>
 

@@ -5,7 +5,7 @@ Handlebars.registerHelper('json', function(context) {
 });
 
 Handlebars.registerHelper('habit', function(context) {
-  var done = ($.inArray(today(), context.dates) > -1);
+  var done = false; //EMTODO
   out = '<div class="checkbox"><label><input type="checkbox" class="test" name="' + context._id  + '" ';
   if(done) { out += "checked" };
   out += '>' + context.name +'</input>';
@@ -15,17 +15,7 @@ Handlebars.registerHelper('habit', function(context) {
   out += "</label></div>";
   return out;
 });
-
-function today() {
-  //var t = new Date();
-  //return "" + t.getFullYear() + "_" +(t.getMonth() + 1) +  "_" + (t.getDate() + 1);
-  return moment().format('MMMM Do YYYY, h:mm:ss a');
-}
-
-Handlebars.registerHelper("today", function()       {
-  return today();
-});  
-
+ 
 
 Template.debug.habits = function () {
   return Habits.find({});
@@ -33,11 +23,12 @@ Template.debug.habits = function () {
 
 Template.today.rendered = function() {
   $('#picker').datepicker({
-      format: "DD, MM d, yyyy",
+      format: "M d, yyyy, D",
       todayBtn: "linked",
       keyboardNavigation: false,
       forceParse: false,
-      todayHighlight: true
+      todayHighlight: true,
+      endDate: '+2d'
   });
   $('#picker').datepicker('setDate', new Date());
   $('#picker').datepicker()
