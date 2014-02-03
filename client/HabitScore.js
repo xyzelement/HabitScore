@@ -7,7 +7,8 @@ function dateToDbKey() {
 
 Handlebars.registerHelper('habit', function(context) {
   var done = ($.inArray(Session.get("lastUpdate"), context.dates) > -1);
-  out = '<div class="checkbox"><label><input type="checkbox" class="test" name="' + context._id  + '" ';
+  out = '<div class="checkbox"><label>';
+  out += '<input type="checkbox" class="test" name="' + context._id  + '" ';
   if(done) { out += "checked" };
   out += '>' + context.name +'</input>';
   if (done) { out += "☺"; }
