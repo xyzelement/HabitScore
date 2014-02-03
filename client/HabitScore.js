@@ -1,8 +1,5 @@
 Habits = new Meteor.Collection("habits");
 
-Handlebars.registerHelper('json', function(context) {
-  return JSON.stringify(context);
-});
 
 function dateToDbKey() {
   return moment($('#picker').datepicker('getDate')).format("YYYYMMDD");
@@ -19,9 +16,6 @@ Handlebars.registerHelper('habit', function(context) {
 });
  
 
-Template.debug.habits = function () {
-  return Habits.find({});
-};
 
 Meteor.startup(function() {
   $('#picker').datepicker({
@@ -32,42 +26,25 @@ Meteor.startup(function() {
       todayHighlight: true,
   });
   $('#picker').datepicker('setDate', new Date());
-  $('#picker').datepicker()
-    .on("changeDate", function(e){
+  $('#picker').datepicker().on("changeDate", function(e){
         Session.set('lastUpdate', dateToDbKey() );
-    });  
+  });  
   Session.set('lastUpdate', dateToDbKey() );
 });
 
-Template.today.events({'click #next_date': function() {
+
+function moveDatePicker(days){
   var date1 = $('#picker').datepicker('getDate');
   var date = new Date( Date.parse( date1 ) ); 
-  date.setDate( date.getDate() + 1 );
+  date.setDate( date.getDate() + days );
   $('#picker').datepicker('setDate', date );
-  //Session.set('lastUpdate', dateToDbKey() );
-}});
-
-Template.today.events({'click #previous_date': function() {
-  var date1 = $('#picker').datepicker('getDate');
-  var date = new Date( Date.parse( date1 ) ); 
-  date.setDate( date.getDate() - 1 );
-  $('#picker').datepicker('setDate', date );
-  //Session.set('lastUpdate', dateToDbKey() );
-}});
-
-
-function huh(){
-  console.log ("-->" + Session.get("lastUpdate"));
 }
 
-Deps.autorun(huh);
+Template.today.events({'click #next_date': function()     { moveDatePicker(1);  }});
+Template.today.events({'click #previous_date': function() { moveDatePicker(-1); }});
 
 Template.today.habits = function () {
   return Habits.find({});
-};
-
-Template.today.lastUpdate = function () {
-      return Session.get('lastUpdate');
 };
 
 var okCancelEvents = function (selector, callbacks) {
@@ -99,8 +76,6 @@ var okCancelEvents = function (selector, callbacks) {
 Template.today.events({'change .test': function(event, template) {
   event.preventDefault();
   var box = template.find("input[name="+this._id+"]");
-
-  //var date = template.find("input[name=the_date]").value;
   var date=dateToDbKey();
 
   if (box.checked) {
@@ -112,18 +87,12 @@ Template.today.events({'change .test': function(event, template) {
   }
 }});
 
-Template.debug.events({
-    'click .dropAll': function(e, t){
-      Meteor.call('removeAll');
-    }
- })
 
-Template.add.events(okCancelEvents('#add-habit',
-  {
+Template.add.events(okCancelEvents('#add-habit', {
     ok: function (text, evt) {
-      var id = Habits.insert({name: text, user:"ed", done: false, dates: []});      
+      var id = Habits.insert({name: text, dates: []});      
       evt.target.value = "";
     }
-  }));
+}));
 
 
