@@ -17,7 +17,6 @@ Handlebars.registerHelper('habit', function(context) {
 });
  
 
-
 Meteor.startup(function() {
   $('#picker').datepicker({
       format: "M d, yyyy, D",
@@ -44,7 +43,16 @@ function moveDatePicker(days){
 Template.today.events({'click #next_date': function()     { moveDatePicker(1);  }});
 Template.today.events({'click #previous_date': function() { moveDatePicker(-1); }});
 
+
+//EMTODO:  it should not be making any trips to the server as the 
+// data should already be in minimongo on the client. That said, 
+// you might want to look into global helpers in handlerbars if you 
+//find yourself with lots of repeating code.
 Template.today.habits = function () {
+  return Habits.find({});
+};
+
+Template.add.habits = function () {
   return Habits.find({});
 };
 
@@ -97,3 +105,26 @@ Template.add.events(okCancelEvents('#add-habit', {
 }));
 
 
+Template.add.events({'click .edit-selector': function(event,template) {
+        Session.set("currentlyEdited", this);
+}});
+
+Template.add.events({'click .edit-save': function(event,template) {
+  //EMTODO: input validation      
+  var new_name = $('#edit-name').val();
+  var id       = Session.get("currentlyEdited")._id;
+  Habits.update({_id: id}, {$set: {name: new_name}});
+
+}});
+
+
+Handlebars.registerHelper('currentlyEdited', function(context) {
+  var x = Session.get("currentlyEdited");
+  if (!x) {
+    return "nada!";
+  } else {
+    out  = '<input type="text" id="edit-name" value="'+x.name+'" />';
+    out += '<a href="#" class="edit-save">Save</a>'
+    return out;
+  }
+});

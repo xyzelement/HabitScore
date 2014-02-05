@@ -5,32 +5,47 @@
     <h1>Habit Score <small>How you doin'?</small></h1>
   </div>
 
+  <div id="add-pane">
+    {{> add}}
+  </div>
+
   <div id="today-pane">
     {{> today}}
   </div>
 
-  <div id="add-pane">
-    {{> add}}
-  </div>
+  {{> debug}}
 </body>
 
 <template name="add">  
-  <input type="text" id="add-habit" placeholder="New Habit" />
+  <div class="well">
+    <h4>Add</h4>
+    <input type="text" id="add-habit" placeholder="New Habit" />
+
+    <h4>Modify</h4>
+    {{#each habits}}
+      <a href="#" class="edit-selector">{{name}}</a><br/>
+    {{/each}}
+
+
+    {{{currentlyEdited}}}
+
+  </div>
 </template>
 
-<template name="habits">
-</template>
 
-<template name="today">
-    <div>
+
+<template name="today">    
+    <div class="well">
+      <h4>Overview</h4>
       <input type="button" id="previous_date" class="btn btn-primary" value="-"/>
       <input type="text"   id="picker"           />
       <input type="button" id="next_date"     class="btn btn-primary" value="+"/>
-    </div>
 
-    {{#each habits}}
-      {{{habit this}}}
-    {{/each}}
+      {{#each habits}}
+        {{{habit this}}}
+      {{/each}}
+
+    </div>
 </template>
 
 <template name="debug">  
