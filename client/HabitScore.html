@@ -1,19 +1,31 @@
 
 
 <body>
+
   <div class="page-header">
-    <h1>Habit Score <small>How you doin'?</small></h1>
+    <h1>Habit Score</h1>
   </div>
 
-  <div id="add-pane">
-    {{> add}}
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#home" data-toggle="tab">Habits</a></li>
+    <li><a href="#profile" data-toggle="tab">Modify</a></li>
+    <li><a href="#debug" data-toggle="tab">Debug</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="home">
+      <div id="today-pane">
+        {{> today}}
+      </div>
+    </div>
+    <div class="tab-pane" id="profile">
+      <div id="add-pane">
+        {{> add}}
+      </div>
+    </div>
+    <div class="tab-pane" id="debug">
+      {{> debug}}
+    </div>
   </div>
-
-  <div id="today-pane">
-    {{> today}}
-  </div>
-
-  {{> debug}}
 </body>
 
 <template name="add">  
@@ -36,7 +48,6 @@
 
 <template name="today">    
     <div class="well">
-      <h4>Overview</h4>
       <input type="button" id="previous_date" class="btn btn-primary" value="-"/>
       <input type="text"   id="picker"           />
       <input type="button" id="next_date"     class="btn btn-primary" value="+"/>
@@ -48,11 +59,13 @@
     </div>
 </template>
 
-<template name="debug">  
-  <small>
-    {{#each habits}}
-      {{json this}}<br/>
-    {{/each}}
-    <a class="dropAll" href="#">Drop All</a>
-  </small>
+<template name="debug">
+  <div class="well">
+    <small>
+      {{#each habits}}
+        {{json this}}<br/>
+      {{/each}}
+      <a class="dropAll" href="#">Drop All</a>
+    </small>
+  </div>
 </template>
