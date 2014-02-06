@@ -1,4 +1,4 @@
-Habits = new Meteor.Collection("habits");
+Habits = new Meteor.Collection("habits"); 
 
 
 function dateToDbKey() {
@@ -6,13 +6,16 @@ function dateToDbKey() {
 }
 
 Handlebars.registerHelper('habit', function(context) {
+  //return "hello";
   var done = ($.inArray(Session.get("lastUpdate"), context.dates) > -1);
-  out = '<div class="checkbox"><label>';
+  out = '<div class="list-group-item' + (done? ' list-group-item-success': '')+'">';
+  out += '<div class="checkbox"><label>';
   out += '<input type="checkbox" class="test" name="' + context._id  + '" ';
   if(done) { out += "checked" };
   out += '>' + context.name +'</input>';
   if (done) { out += "☺"; }
   out += "</label><div>";
+  out += "</div>"
   return out;
 });
  
@@ -40,8 +43,8 @@ function moveDatePicker(days){
   $('#picker').datepicker('setDate', date );
 }
 
-Template.today.events({'click #next_date': function()     { moveDatePicker(1);  }});
-Template.today.events({'click #previous_date': function() { moveDatePicker(-1); }});
+Template.days.events({'click #next_date': function()     { moveDatePicker(1);  }});
+Template.days.events({'click #previous_date': function() { moveDatePicker(-1); }});
 
 
 //EMTODO:  it should not be making any trips to the server as the 

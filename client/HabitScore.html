@@ -51,6 +51,12 @@
 
 
 <template name="days">
+      <input type="button" id="previous_date" class="btn btn-primary" value="-"/>
+      <input type="text"   id="picker"           />
+      <input type="button" id="next_date"     class="btn btn-primary" value="+"/>
+
+      <br/><br/>
+
           <div class="list-group">
             <a href="#" class="list-group-item active">
               Today
@@ -63,21 +69,13 @@
 </template>
 
 <template name="today">    
-      <input type="button" id="previous_date" class="btn btn-primary" value="-"/>
-      <input type="text"   id="picker"           />
-      <input type="button" id="next_date"     class="btn btn-primary" value="+"/>
 
+    <div class="list-group">
+      <a class="list-group-item"><b>Good Deeds Done</b></a>
       {{#each habits}}
-        {{{habit this}}}
+        {{{habit this}}} 
       {{/each}}
-
-    <!--
-              <div class="list-group">
-            <a href="#" class="list-group-item">
-              <p class="list-group-item-text">Habit 1</p>
-            </a>
-          </div>
-        -->
+    </div>
 </template>
 
 <template name="debug">
