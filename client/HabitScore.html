@@ -1,19 +1,26 @@
 
-
-<body>
-
+ <template name="layout">
   {{> navHeader}}
 
     <div class="container">
       <div class="row">
         <div class="col-md-4">
-          {{> days}}
+          {{yield "left"}}
         </div>
         <div class="col-md-8">
-          {{> today}}
+          {{yield "right"}} 
         </div>        
       </div>
     </div>
+
+
+  
+
+ </template>
+
+ <template name="main">
+
+
 
 
 
@@ -31,10 +38,9 @@
       {{> debug}}
     </div>
   </div>
-</body>
+</template>
 
 <template name="add">  
-  <div class="well">
     <h4>Add</h4>
     <input type="text" id="add-habit" placeholder="New Habit" />
 
@@ -45,18 +51,10 @@
 
 
     {{{currentlyEdited}}}
-
-  </div>
 </template>
 
 
 <template name="days">
-      <input type="button" id="previous_date" class="btn btn-primary" value="-"/>
-      <input type="text"   id="picker"           />
-      <input type="button" id="next_date"     class="btn btn-primary" value="+"/>
-
-      <br/><br/>
-
           <div class="list-group">
             <a href="#" class="list-group-item active">
               Today
@@ -65,7 +63,14 @@
             <a href="#" class="list-group-item">2 days ago</a>
             <a href="#" class="list-group-item">3 days ago</a>
             <a href="#" class="list-group-item">4 days ago</a>
-          </div>        
+          </div>      
+
+      <br/><br/>
+      <input type="button" id="previous_date" class="btn btn-primary" value="-"/>
+      <input type="text"   id="picker"           />
+      <input type="button" id="next_date"     class="btn btn-primary" value="+"/>
+
+        
 </template>
 
 <template name="today">    
@@ -107,8 +112,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Status</a></li>
-            <li><a href="#">Habits</a></li>
+            <li class="active"><a href="today">Status</a></li>
+            <li><a href="add">Habits</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

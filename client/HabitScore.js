@@ -1,3 +1,35 @@
+Router.configure({
+  layoutTemplate: 'layout'
+});
+
+
+//EMTODO: seems like not using the main template only names
+// ones is not kosher, though works.
+Router.map(function () {
+
+  this.route('add', {
+    yieldTemplates: {
+      'add': {to: 'left'}
+    }
+  });
+
+
+  this.route('today', {
+    path: '/today',
+    yieldTemplates: {
+      'days' : {to: 'left'},
+      'today': {to: 'right'}
+    }
+  });
+});
+
+
+
+
+
+
+
+
 Habits = new Meteor.Collection("habits"); 
 
 
