@@ -84,14 +84,10 @@
 </template>
 
 <template name="debug">
-  <div class="well">
-    <small>
       {{#each habits}}
         {{json this}}<br/>
       {{/each}}
       <a class="dropAll" href="#">Drop All</a>
-    </small>
-  </div>
 </template>
 
 
@@ -114,6 +110,7 @@
           <ul class="nav navbar-nav">
             <li class="{{TabClassName 'today'}}"><a href="/">Status</a></li>
             <li class="{{TabClassName 'add'}}"><a href="/add">Habits</a></li>
+            <li class="{{TabClassName 'debug'}}"><a href="/debug">Debug</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

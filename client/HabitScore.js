@@ -7,9 +7,9 @@ Router.configure({
 // ones is not kosher, though works.
 Router.map(function () {
 
-  this.route('add', {
-    //yieldTemplates: {'add': {to: 'left'} }
-  });
+  this.route('add', {});
+
+  this.route('debug', {});
 
   this.route('today', {
     path: '/',
