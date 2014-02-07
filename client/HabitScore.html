@@ -5,7 +5,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-4">
-          {{yield "left"}}
+          {{yield}}
         </div>
         <div class="col-md-8">
           {{yield "right"}} 
@@ -112,8 +112,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="today">Status</a></li>
-            <li><a href="add">Habits</a></li>
+            <li class="{{TabClassName 'today'}}"><a href="/">Status</a></li>
+            <li class="{{TabClassName 'add'}}"><a href="/add">Habits</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

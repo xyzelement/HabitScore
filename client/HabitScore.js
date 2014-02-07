@@ -8,22 +8,22 @@ Router.configure({
 Router.map(function () {
 
   this.route('add', {
-    yieldTemplates: {
-      'add': {to: 'left'}
-    }
+    //yieldTemplates: {'add': {to: 'left'} }
   });
 
-
   this.route('today', {
-    path: '/today',
+    path: '/',
+    template: 'days',
     yieldTemplates: {
-      'days' : {to: 'left'},
+      //'days' : {to: 'left'},
       'today': {to: 'right'}
     }
   });
 });
 
-
+Handlebars.registerHelper('TabClassName', function (route) {
+  return Router.current().route.name === route ? "active" : "";
+});
 
 
 
