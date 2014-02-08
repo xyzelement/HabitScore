@@ -46,8 +46,8 @@ Handlebars.registerHelper('habit', function(context) {
   if(done) { out += "checked" };
   out += '>' + context.name +'</input>';
   if (done) { out += "☺"; }
-  out += ' <span class="badge">'+context.dates.length+'</span></a>';
-  out += "</label><div>";
+  out += ' <span class="badge">'+context.dates.length+'</span>';
+  out += '</label><div>';
   out += "</div>"
   return out;
 });
