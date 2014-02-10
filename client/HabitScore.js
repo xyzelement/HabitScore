@@ -37,13 +37,7 @@ Handlebars.registerHelper('TabClassName', function (route) {
 
 Habits = new Meteor.Collection("habits"); 
 
-
-function dateToDbKey() {
-  return moment($('#picker').datepicker('getDate')).format("YYYYMMDD");
-}
-
 Handlebars.registerHelper('habit', function(context) {
-  //return "hello";
   var done = ($.inArray(Session.get("lastUpdate"), context.dates) > -1);
   out = '<div class="list-group-item' + (done? ' list-group-item-success': '')+'">';
   out += '<div class="checkbox"><label>';
@@ -58,32 +52,48 @@ Handlebars.registerHelper('habit', function(context) {
 });
  
 
-Meteor.startup(function() {
-  $('#picker').datepicker({
-      format: "M d, yyyy, D",
-      todayBtn: "linked",
-      keyboardNavigation: false,
-      forceParse: false,
-      todayHighlight: true,
-  });
-  $('#picker').datepicker('setDate', new Date());
-  $('#picker').datepicker().on("changeDate", function(e){
-        Session.set('lastUpdate', dateToDbKey() );
-  });  
-  Session.set('lastUpdate', dateToDbKey() );
+Handlebars.registerHelper('dayButton', function(context) {
+  var active = "";
+  if (context.date == Session.get('lastUpdate')) { active =" active"; };
+  return '<a href="#" class="list-group-item '+active+'" data-id="'+context.date+'">'+context.text+'</a>'
 });
 
-
-function moveDatePicker(days){
-  var date1 = $('#picker').datepicker('getDate');
-  var date = new Date( Date.parse( date1 ) ); 
-  date.setDate( date.getDate() + days );
-  $('#picker').datepicker('setDate', date );
+function dateToKey(date) {
+  return date.format("YYYYMMDD");
 }
 
-Template.days.events({'click #next_date': function()     { moveDatePicker(1);  }});
-Template.days.events({'click #previous_date': function() { moveDatePicker(-1); }});
+function makeDayButton(day) {
+    moment.lang('en', {
+        'calendar' : {
+            'lastDay' : '[Yesterday]',
+            'sameDay' : '[Today]',
+            'lastWeek' : 'dddd',
+            'nextWeek' : 'dddd',
+            'sameElse' : 'dddd'
+       }
+    });
 
+  return {text: "<b>" + day.format("MMM D")+"</b> " +day.calendar(), date: dateToKey(day)};
+}
+
+Template.days.buttons = function () {
+  var out = [];
+  for (var i=0; i<7; ++i){
+    out.push( makeDayButton(moment().subtract('days', i) ) );
+  }
+
+  console.log(out);
+  return out;
+}
+
+Template.days.events({'click ': function(event,template) {
+  var date = event.target.getAttribute("data-id");  
+  Session.set('lastUpdate', date );
+}});
+
+Meteor.startup(function(){
+ Session.set('lastUpdate', dateToKey(moment()) );
+});
 
 //EMTODO:  it should not be making any trips to the server as the 
 // data should already be in minimongo on the client. That said, 
@@ -126,7 +136,7 @@ var okCancelEvents = function (selector, callbacks) {
 Template.today.events({'change .test': function(event, template) {
   event.preventDefault();
   var box = template.find("input[name="+this._id+"]");
-  var date=dateToDbKey();
+  var date= Session.get('lastUpdate');
 
   if (box.checked) {
     //EMTODO: Would be nice to treat this as a "set" to avoid 
