@@ -1,4 +1,9 @@
 
+Handlebars.registerHelper('dayButton', function(context) {
+  var active = "";
+  if (context.date == Session.get('lastUpdate')) { active =" active"; };
+  return '<a href="#" class="list-group-item '+active+'" data-id="'+context.date+'">'+context.text+'</a>'
+});
 
 function makeDayButton(day) {
   moment.lang('en', {
