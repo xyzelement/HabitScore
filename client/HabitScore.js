@@ -58,15 +58,12 @@ Handlebars.registerHelper('dayButton', function(context) {
   return '<a href="#" class="list-group-item '+active+'" data-id="'+context.date+'">'+context.text+'</a>'
 });
 
-function dateToKey(date) {
-  return date.format("YYYYMMDD");
-}
 
 
 
 
 Meteor.startup(function(){
- Session.set('lastUpdate', dateToKey(moment()) );
+ Session.set('lastUpdate', Meteor.utils.dateToKey(moment()) );
 });
 
 //EMTODO:  it should not be making any trips to the server as the 

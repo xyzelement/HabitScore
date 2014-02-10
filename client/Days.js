@@ -1,7 +1,4 @@
-function dateToKey(date) {
-  //EMTODO: avoid duplicating this function
-  return date.format("YYYYMMDD");
-}
+
 
 function makeDayButton(day) {
   moment.lang('en', {
@@ -13,7 +10,7 @@ function makeDayButton(day) {
             'sameElse' : 'dddd'
        }
   });
-  return {text: "<b>" + day.format("MMM D")+"</b> " +day.calendar(), date: dateToKey(day)};
+  return {text: "<b>" + day.format("MMM D")+"</b> " +day.calendar(), date: Meteor.utils.dateToKey(day)};
 }
 
 Template.days.buttons = function () {
