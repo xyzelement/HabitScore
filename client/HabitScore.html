@@ -49,52 +49,42 @@
     {{{currentlyEdited}}}
 </template>
 
-<template name="edit">
+<template name="edit">  
+  
   <form class="form-horizontal" role="form" name="edit-form">
     <div class="list-group">
       <a class="list-group-item">
           <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Habit</label>
             <div class="col-sm-6">
-              <input class="form-control" id="edit-habit" placeholder="Habit">
+              <input class="form-control" id="edit-habit" placeholder="Habit" value="{{selected.name}}">
             </div>
           </div>
       </a>
       <a class="list-group-item">
-      
           <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Good Badge<br/><small>Awarded for sticking with it</small></label>
             <div class="col-sm-6">
-              <input type="email" class="form-control" id="edit-good-badge" placeholder="Good Badge">
+              <input type="email" class="form-control" id="edit-good-badge" placeholder="Good Badge" 
+                value="{{selected.badges.good}}">
               When you do this 
-              <select id="edit-good-days1">
-                <option>1</option><option>2</option>
-                <option selected="selected">3</option>
-                <option>4</option><option>5</option>
-              </select> out of the past
-              <select id="edit-good-days2">
-                <option>1</option><option>2</option>
-                <option>3</option><option>4</option>
-                <option selected="selected">5</option>
-              </select> days.
+              {{{days_selector "edit-good-days1" selected.badges.good_days1}}}
+              out of the past
+              {{{days_selector "edit-good-days2" selected.badges.good_days2}}}
+              days.
             </div>
           </div>  
 
           <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Bad Badge<br/><small>Shames you when you lapse</small></label>
             <div class="col-sm-6">
-              <input type="email" class="form-control" id="edit-bad-badge" placeholder="Bad Badge">
+              <input type="email" class="form-control" id="edit-bad-badge" placeholder="Bad Badge"
+                value="{{selected.badges.bad}}">
               When you miss 
-              <select id="edit-bad-days1">
-                <option>1</option><option>2</option>
-                <option selected="selected">3</option>
-                <option>4</option><option>5</option>
-              </select> out of the past
-              <select id="edit-bad-days2">
-                <option>1</option><option>2</option>
-                <option>3</option><option>4</option>
-                <option selected="selected">5</option>
-              </select> days. 
+              {{{days_selector "edit-bad-days1" selected.badges.bad_days1}}} 
+              out of the past
+              {{{days_selector "edit-bad-days2" selected.badges.bad_days2}}}
+              days. 
             </div>
           </div>           
       </a>

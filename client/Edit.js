@@ -18,3 +18,18 @@ Template.edit.events({'click .edit-save': function(event,template) {
   Habits.update({_id: id}, {$set: {name: habit}});
   Habits.update({_id: id}, {$set: {badges: badges}});
 }});
+
+Template.edit.selected = function () {
+  return Session.get("currentlyEdited");
+};
+
+Handlebars.registerHelper('days_selector', function(id, selected) {
+
+  out =  '<select id="'+id+'">';
+  for (var i=1; i<8; ++i) {
+    out += '<option' + ((selected == i)?' selected':'') +'>'+i+'</option>';
+  }
+  out += '</select>';
+
+  return out;
+});
