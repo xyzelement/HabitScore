@@ -44,13 +44,9 @@ Template.add.habits = function () {
   return Habits.find({});
 };
 
-Handlebars.registerHelper('currentlyEdited', function(context) {
-  var x = Session.get("currentlyEdited");
-  if (!x) {
-    return "nada!";
-  } else {
-    out  = '<input type="text" id="edit-name" value="'+x.name+'" />';
-    out += '<a href="#" class="edit-save">Save</a>'
-    return out;
-  }
+Handlebars.registerHelper('habitButton', function(habit) {
+  return '<a href="#" class="list-group-item edit-selector">'+habit.name+'</a>';
+  var active = "";
+  if (context.date == Session.get('lastUpdate')) { active =" active"; };
+  return '<a href="#" class="list-group-item '+active+'" data-id="'+context.date+'">'+context.text+'</a>'
 });

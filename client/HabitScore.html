@@ -1,5 +1,5 @@
 
- <template name="layout">
+<template name="layout">
   {{> navHeader}}
 
     <div class="container">
@@ -13,10 +13,7 @@
       </div>
     </div>
 
-
-  
-
- </template>
+</template>
 
  <template name="main">
 
@@ -37,16 +34,14 @@
 </template>
 
 <template name="add">  
-    <h4>Add</h4>
-    <input type="text" id="add-habit" placeholder="New Habit" />
-
-    <h4>Modify</h4>
+  <div class="list-group">
+    <a href="#" class="list-group-item active">Modify</a>
     {{#each habits}}
-      <a href="#" class="edit-selector">{{name}}</a><br/>
+      {{{habitButton this}}}
     {{/each}}
-
-
-    {{{currentlyEdited}}}
+    <a href="#" class="list-group-item active">Add</a>
+    <a href="#" class="list-group-item"><input type="text" id="add-habit" placeholder="New Habit" /></a>
+  </div> 
 </template>
 
 <template name="edit">  
