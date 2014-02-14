@@ -35,11 +35,13 @@
 
 <template name="add">  
   <div class="list-group">
-    <a href="#" class="list-group-item active">Modify</a>
+    <a href="#" class="list-group-item"><b>Modify</b></a>
     {{#each habits}}
       {{{habitButton this}}}
     {{/each}}
-    <a href="#" class="list-group-item active">Add</a>
+  </div>    
+  <div class="list-group">
+    <a href="#" class="list-group-item"><b>Add</b></a>
     <a href="#" class="list-group-item"><input type="text" id="add-habit" placeholder="New Habit" /></a>
   </div> 
 </template>

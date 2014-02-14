@@ -45,8 +45,8 @@ Template.add.habits = function () {
 };
 
 Handlebars.registerHelper('habitButton', function(habit) {
-  return '<a href="#" class="list-group-item edit-selector">'+habit.name+'</a>';
   var active = "";
-  if (context.date == Session.get('lastUpdate')) { active =" active"; };
-  return '<a href="#" class="list-group-item '+active+'" data-id="'+context.date+'">'+context.text+'</a>'
+  var sel = Session.get('currentlyEdited');
+  if (sel && habit._id == sel._id) { active =" active"; };
+  return '<a href="#" class="list-group-item edit-selector '+active+'">'+habit.name+'</a>';
 });
