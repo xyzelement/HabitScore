@@ -8,6 +8,7 @@ Router.configure({
 Router.map(function () {
 
   this.route('add', {
+    template: 'habitSelectionTemplate',
     yieldTemplates: {
       //'days' : {to: 'left'},
       'edit': {to: 'right'}

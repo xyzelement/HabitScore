@@ -22,25 +22,25 @@ var okCancelEvents = function (selector, callbacks) {
   return events;
 };
 
-Template.add.events(okCancelEvents('#add-habit', {
+Template.habitSelectionTemplate.events(okCancelEvents('#add-habit', {
     ok: function (text, evt) {
       var id = Habits.insert({name: text, dates: []});      
       evt.target.value = "";
     }
 }));
 
-Template.add.events({'click .edit-selector': function(event,template) {
+Template.habitSelectionTemplate.events({'click .edit-selector': function(event,template) {
         Session.set("currentlyEdited", this);
 }});
 
-Template.add.events({'click .edit-save': function(event,template) {
+Template.habitSelectionTemplate.events({'click .edit-save': function(event,template) {
   //EMTODO: input validation      
   var new_name = $('#edit-name').val();
   var id       = Session.get("currentlyEdited")._id;
   Habits.update({_id: id}, {$set: {name: new_name}});
 }});
 
-Template.add.habits = function () {
+Template.habitSelectionTemplate.habits = function () {
   return Habits.find({});
 };
 

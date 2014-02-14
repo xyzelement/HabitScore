@@ -24,7 +24,7 @@
   <div class="tab-content">
     <div class="tab-pane active" id="profile">
       <div id="add-pane">
-        {{> add}}
+        {{> habitSelectionTemplate}}
       </div>
     </div>
     <div class="tab-pane" id="debug">
@@ -33,7 +33,7 @@
   </div>
 </template>
 
-<template name="add">  
+<template name="habitSelectionTemplate">  
   <div class="list-group">
     <a href="#" class="list-group-item"><b>Modify</b></a>
     {{#each habits}}
