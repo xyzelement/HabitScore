@@ -60,8 +60,10 @@
       </a>
       <a class="list-group-item">
           <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Good Badge<br/><small>Awarded for sticking with it</small></label>
+            <label for="inputEmail3" class="col-sm-2 control-label">Good Badge<br/></label>
             <div class="col-sm-6">
+              {{{habit_checkbox selected "good"}}}      
+              </br>
               <input type="email" class="form-control" id="edit-good-badge" placeholder="Good Badge" 
                 value="{{selected.badges.good}}">
               When you do this 
@@ -75,6 +77,8 @@
           <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Bad Badge<br/><small>Shames you when you lapse</small></label>
             <div class="col-sm-6">
+              {{{habit_checkbox selected "bad"}}}      
+              </br>              
               <input type="email" class="form-control" id="edit-bad-badge" placeholder="Bad Badge"
                 value="{{selected.badges.bad}}">
               When you miss 
@@ -88,6 +92,8 @@
     </div>
   </form>
   <a href="#" class="edit-save">Save</a>
+
+  {{> debug}}
 </template>
 
 
