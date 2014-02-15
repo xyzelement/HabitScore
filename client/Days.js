@@ -20,7 +20,7 @@ function makeDayButton(day) {
 
 Template.days.buttons = function () {
   var out = [];
-  for (var i=0; i<7; ++i){
+  for (var i=0; i<Meteor.utils.maxDaysDisplayed; ++i){
     out.push( makeDayButton(moment().subtract('days', i) ) );
   }
 
