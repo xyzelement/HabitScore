@@ -48,7 +48,7 @@
 
 <template name="edit">  
   
-  <form class="form-horizontal" role="form" name="edit-form">
+  <div class="form-horizontal" role="form" name="edit-form">
     <div class="list-group">
       <a class="list-group-item">
           <div class="form-group">
@@ -77,12 +77,12 @@
           <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Bad Badge<br/><small>Shames you when you lapse</small></label>
             <div class="col-sm-6">
-              {{{habit_checkbox selected "bad"}}}      
+              {{{habit_checkbox selected "bad"}}} 
               </br>              
               <input type="email" class="form-control" id="edit-bad-badge" placeholder="Bad Badge"
                 value="{{selected.badges.bad}}">
               When you miss 
-              {{{days_selector "edit-bad-days1" selected.badges.bad_days1}}} 
+              {{{days_selector "edit-bad-days1" selected.badges.bad_days1}}}
               out of the past
               {{{days_selector "edit-bad-days2" selected.badges.bad_days2}}}
               days. 
@@ -90,10 +90,8 @@
           </div>           
       </a>
     </div>
-  </form>
+  </div>
   <a href="#" class="edit-save">Save</a>
-
-  {{> debug}}
 </template>
 
 
