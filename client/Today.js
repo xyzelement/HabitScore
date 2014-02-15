@@ -35,13 +35,12 @@ Handlebars.registerHelper('habit', function(context) {
   if(done) { out += "checked" };
   out += '>' + context.name +'</input>';
   if (done) { out += "☺"; }
-  out += ' <span class="badge">'+context.dates.length+'</span>';
-  out += ' <span class="badge">'
-      +$.arrayIntersect(context.dates, getLastXRecentDates(15)).length 
-      +'</span>';
+  out += makeBadge(context, "good");
+  out += makeBadge(context, "bad");
   out += '</label><div>';
   out += "</div>"
 
+  makeBadge(context, "good");
   return out;
 });
  
@@ -60,8 +59,15 @@ $.arrayIntersect = function(a, b) {
     });
 };
 
-function makeBadges(habit) {
-
-
-  
+function makeBadge(habit, which) {
+  var out = "";
+  var badge = habit.badges[which];
+  var inter = $.arrayIntersect(habit.dates, getLastXRecentDates(badge.days2)).length;
+  if (which === "good" && inter >= badge.days1) {
+    out += ' <span class="label label-success">'+badge.name+'</span>';
+  }
+  if (which === "bad" && inter <= badge.days1) {
+    out += ' <span class="label label-danger">'+badge.name+'</span>';
+  }  
+  return out;
 }
