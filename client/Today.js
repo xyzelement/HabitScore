@@ -59,3 +59,9 @@ $.arrayIntersect = function(a, b) {
         return $.inArray(i, b) > -1;
     });
 };
+
+function makeBadges(habit) {
+
+
+  
+}

@@ -8,15 +8,19 @@ Template.edit.events({'click .edit-save': function(event,template) {
   var habit = Session.get("currentlyEdited");
   habit.name        = $('#edit-habit').val();
   
-  habit.badges.use_good_badge = $('#use_good_badge').attr('checked');
-  habit.badges.good           = $('#edit-good-badge').val();
-  habit.badges.good_days1     = $('#edit-good-days1').val();
-  habit.badges.good_days2     = $('#edit-good-days2').val();
-  
-  habit.badges.use_bad_badge  = $('#use_bad_badge').attr('checked');
-  habit.badges.bad            = $('#edit-bad-badge').val();  
-  habit.badges.bad_days1      = $('#edit-bad-days1').val();
-  habit.badges.bad_days2      = $('#edit-bad-days2').val();
+  habit.badges = {good: 
+                    { use:       $('#use_good_badge').attr('checked'),
+                      name:      $('#edit-good-badge').val(),
+                      days1:     $('#edit-good-days1').val(),
+                      days2:     $('#edit-good-days2').val()
+                    },
+                  bad: 
+                    { use:       $('#use_bad_badge').attr('checked'),
+                      name:      $('#edit-bad-badge').val(),
+                      days1:     $('#edit-bad-days1').val(),
+                      days2:     $('#edit-bad-days2').val()
+                    }
+                  };
   
   //EMTODO: can this be a single DB op?
 
@@ -38,12 +42,12 @@ Handlebars.registerHelper('habit_checkbox', function(habit, which) {
 
   switch(which) {
     case "good":      
-      checked = habit && habit.badges && habit.badges.use_good_badge ? " checked" : "";
+      checked = habit && habit.badges && habit.badges.good.use ? " checked" : "";
       label   = "Badge of Awesome!";
       id      = "use_good_badge";
       break;
     case "bad" :
-      checked = habit && habit.badges && habit.badges.use_bad_badge ? " checked" : "";
+      checked = habit && habit.badges && habit.badges.bad.use ? " checked" : "";
       label   = "Badge of Shame!";      
       id      = "use_bad_badge";
       break;   

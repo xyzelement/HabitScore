@@ -65,11 +65,11 @@
               {{{habit_checkbox selected "good"}}}      
               </br>
               <input type="email" class="form-control" id="edit-good-badge" placeholder="Good Badge" 
-                value="{{selected.badges.good}}">
+                value="{{selected.badges.good.name}}">
               When you do this 
-              {{{days_selector "edit-good-days1" selected.badges.good_days1}}}
+              {{{days_selector "edit-good-days1" selected.badges.good.days1}}}
               out of the past
-              {{{days_selector "edit-good-days2" selected.badges.good_days2}}}
+              {{{days_selector "edit-good-days2" selected.badges.good.days2}}}
               days.
             </div>
           </div>  
@@ -80,11 +80,11 @@
               {{{habit_checkbox selected "bad"}}} 
               </br>              
               <input type="email" class="form-control" id="edit-bad-badge" placeholder="Bad Badge"
-                value="{{selected.badges.bad}}">
+                value="{{selected.badges.bad.name}}">
               When you miss 
-              {{{days_selector "edit-bad-days1" selected.badges.bad_days1}}}
+              {{{days_selector "edit-bad-days1" selected.badges.bad.days1}}}
               out of the past
-              {{{days_selector "edit-bad-days2" selected.badges.bad_days2}}}
+              {{{days_selector "edit-bad-days2" selected.badges.bad.days2}}}
               days. 
             </div>
           </div>           
