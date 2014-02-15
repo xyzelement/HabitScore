@@ -20,6 +20,13 @@ Template.today.events({'change .test': function(event, template) {
   }
 }});
 
+function getLastXRecentDates(x) {
+  for (var i=0; i<x; ++i){
+    out.push( Meteor.utils.dateToKey( moment().subtract('days', i) ) );
+  }
+  return out;
+}
+
 Handlebars.registerHelper('habit', function(context) {
   var done = ($.inArray(Session.get("lastUpdate"), context.dates) > -1);
   out = '<div class="list-group-item' + (done? ' list-group-item-success': '')+'">';
@@ -29,8 +36,26 @@ Handlebars.registerHelper('habit', function(context) {
   out += '>' + context.name +'</input>';
   if (done) { out += "☺"; }
   out += ' <span class="badge">'+context.dates.length+'</span>';
+  out += ' <span class="badge">'
+      +$.arrayIntersect(context.dates, getLastXRecentDates(15)).length 
+      +'</span>';
   out += '</label><div>';
   out += "</div>"
+
   return out;
 });
  
+
+function getLastXRecentDates(x) {
+  var out = [];
+  for (var i=0; i<x; ++i){
+    out.push( Meteor.utils.dateToKey( moment().subtract('days', i) ) );
+  }
+  return out;
+}
+
+$.arrayIntersect = function(a, b) {
+    return $.grep(a, function(i) {
+        return $.inArray(i, b) > -1;
+    });
+};
