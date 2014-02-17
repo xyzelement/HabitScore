@@ -30,8 +30,8 @@ Handlebars.registerHelper('habit', function(context) {
   if(done) { out += "checked" };
   out += '>' + context.name +'</input>';
   if (done) { out += "☺"; }
-  out += makeBadge(context, "good");
-  out += makeBadge(context, "bad");
+  //out += makeBadge(context, "good");
+  //out += makeBadge(context, "bad");
   out += '</label><div>';
   out += "</div>"
 

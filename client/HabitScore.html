@@ -58,40 +58,19 @@
             </div>
           </div>
       </a>
+
+
       <a class="list-group-item">
           <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Good Badge<br/></label>
             <div class="col-sm-6">
-              {{{habit_checkbox selected "good"}}}      
-              </br>
-              <input type="email" class="form-control" id="edit-good-badge" placeholder="Good Badge" 
-                value="{{selected.badges.good.name}}">
-              When you do this 
-              {{{days_selector "edit-good-days1" selected.badges.good.days1}}}
-              out of the past
-              {{{days_selector "edit-good-days2" selected.badges.good.days2}}}
-              days.
-            </div>
-          </div>  
-
-          <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Bad Badge<br/><small>Shames you when you lapse</small></label>
-            <div class="col-sm-6">
-              {{{habit_checkbox selected "bad"}}} 
-              </br>              
-              <input type="email" class="form-control" id="edit-bad-badge" placeholder="Bad Badge"
-                value="{{selected.badges.bad.name}}">
-              When you miss 
-              {{{days_selector "edit-bad-days1" selected.badges.bad.days1}}}
-              out of the past
-              {{{days_selector "edit-bad-days2" selected.badges.bad.days2}}}
-              days. 
-            </div>
-          </div>           
+                {{{badgeItems}}}
+            </div>         
+        </div>
       </a>
     </div>
   </div>
-  <a href="#" class="edit-save">Save</a>
+  <a href="#" class="edit-save-badges">Save</a>
 </template>
 
 

@@ -59,13 +59,3 @@ Handlebars.registerHelper('habit_checkbox', function(habit, which) {
           +id+'"'+checked+'>'+label+'</label></div>'
 });
 
-Handlebars.registerHelper('days_selector', function(id, selected) {
-
-  out =  '<select id="'+id+'">';
-  for (var i=1; i<Meteor.utils.maxDaysDisplayed; ++i) {
-    out += '<option' + ((selected == i)?' selected':'') +'>'+i+'</option>';
-  }
-  out += '</select>';
-
-  return out;
-});
