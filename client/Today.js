@@ -43,12 +43,10 @@ Handlebars.registerHelper('habit', function(context) {
 function getLastXdaysPriorTo(x, prior_to) {  
   var out = [];
   for (var i=0; i<x; ++i){
-    var date = Meteor.utils.keyToDate(prior_to);
-    var x1= ( date.subtract('days', i) );    
-    out.push( Meteor.utils.dateToKey(x1) );
-    console.log(Meteor.utils.dateToKey(x1));
+    var prior_to_date = Meteor.utils.keyToDate(prior_to);
+    var subtracted    = prior_to_date.subtract('days', i);    
+    out.push( Meteor.utils.dateToKey(subtracted));
   }
-  console.log(x,"days before", prior_to, out);
   return out;
 }
 
