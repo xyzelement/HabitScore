@@ -6,6 +6,7 @@ Template.today.habits = function () {
   return Habits.find({});
 };
 
+//EMTODO: .test ??
 Template.today.events({'change .test': function(event, template) {
   event.preventDefault();
   var box = template.find("input[name="+this._id+"]");
@@ -20,12 +21,6 @@ Template.today.events({'change .test': function(event, template) {
   }
 }});
 
-function getLastXRecentDates(x) {
-  for (var i=0; i<x; ++i){
-    out.push( Meteor.utils.dateToKey( moment().subtract('days', i) ) );
-  }
-  return out;
-}
 
 Handlebars.registerHelper('habit', function(context) {
   var done = ($.inArray(Session.get("lastUpdate"), context.dates) > -1);
@@ -40,16 +35,20 @@ Handlebars.registerHelper('habit', function(context) {
   out += '</label><div>';
   out += "</div>"
 
-  makeBadge(context, "good");
   return out;
 });
  
 
-function getLastXRecentDates(x) {
+
+function getLastXdaysPriorTo(x, prior_to) {  
   var out = [];
   for (var i=0; i<x; ++i){
-    out.push( Meteor.utils.dateToKey( moment().subtract('days', i) ) );
+    var date = Meteor.utils.keyToDate(prior_to);
+    var x1= ( date.subtract('days', i) );    
+    out.push( Meteor.utils.dateToKey(x1) );
+    console.log(Meteor.utils.dateToKey(x1));
   }
+  console.log(x,"days before", prior_to, out);
   return out;
 }
 
@@ -60,9 +59,15 @@ $.arrayIntersect = function(a, b) {
 };
 
 function makeBadge(habit, which) {
+
+  var date= Session.get('lastUpdate');
+
   var out = "";
   var badge = habit.badges[which];
-  var inter = $.arrayIntersect(habit.dates, getLastXRecentDates(badge.days2)).length;
+  var inter = $.arrayIntersect(habit.dates, 
+    getLastXdaysPriorTo(badge.days2, date)).length;
+  
+
   if (which === "good" && inter >= badge.days1) {
     out += ' <span class="label label-success">'+badge.name+'</span>';
   }
