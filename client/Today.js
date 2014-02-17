@@ -58,10 +58,15 @@ $.arrayIntersect = function(a, b) {
 
 function makeBadge(habit, which) {
 
+  var badge = habit.badges[which];
+  if (!badge.use) {
+    return "";
+  }
+
+
   var date= Session.get('lastUpdate');
 
-  var out = "";
-  var badge = habit.badges[which];
+  var out = "";  
   var inter = $.arrayIntersect(habit.dates, 
     getLastXdaysPriorTo(badge.days2, date)).length;
   
