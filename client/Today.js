@@ -30,8 +30,7 @@ Handlebars.registerHelper('habit', function(context) {
   if(done) { out += "checked" };
   out += '>' + context.name +'</input>';
   if (done) { out += "☺"; }
-  //out += makeBadge(context, "good");
-  //out += makeBadge(context, "bad");
+  out += makeBadge(context);
   out += '</label><div>';
   out += "</div>"
 
@@ -40,42 +39,9 @@ Handlebars.registerHelper('habit', function(context) {
  
 
 
-function getLastXdaysPriorTo(x, prior_to) {  
-  var out = [];
-  for (var i=0; i<x; ++i){
-    var prior_to_date = Meteor.utils.keyToDate(prior_to);
-    var subtracted    = prior_to_date.subtract('days', i);    
-    out.push( Meteor.utils.dateToKey(subtracted));
-  }
-  return out;
-}
 
-$.arrayIntersect = function(a, b) {
-    return $.grep(a, function(i) {
-        return $.inArray(i, b) > -1;
-    });
-};
 
 function makeBadge(habit, which) {
-
-  var badge = habit.badges[which];
-  if (!badge.use) {
-    return "";
-  }
-
-
   var date= Session.get('lastUpdate');
-
-  var out = "";  
-  var inter = $.arrayIntersect(habit.dates, 
-    getLastXdaysPriorTo(badge.days2, date)).length;
-  
-
-  if (which === "good" && inter >= badge.days1) {
-    out += ' <span class="label label-success">'+badge.name+'</span>';
-  }
-  if (which === "bad" && inter <= badge.days1) {
-    out += ' <span class="label label-danger">'+badge.name+'</span>';
-  }  
-  return out;
+  return habit.badges.getAttainment(date, habit.dates);  
 }
