@@ -68,10 +68,10 @@ Badges = function(success, warning, danger){
 	}
 
 	this.getAttainment = function(date, dates) {
-		if (this.danger.attained(date, dates))  { return "DANGER";  }		
-		if (this.warning.attained(date, dates)) { return "WARNING"; }		
-		if (this.success.attained(date, dates)) { return "SUCCESS"; }		
-		return "NO BADGE";
+		if (this.danger.attained(date, dates))  { return "danger";  }		
+		if (this.warning.attained(date, dates)) { return "warning"; }		
+		if (this.success.attained(date, dates)) { return "success"; }		
+		return "info";
 	}
 }
 

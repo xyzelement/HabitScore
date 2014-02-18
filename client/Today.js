@@ -24,16 +24,17 @@ Template.today.events({'change .test': function(event, template) {
 
 Handlebars.registerHelper('habit', function(context) {
   var done = ($.inArray(Session.get("lastUpdate"), context.dates) > -1);
-  out = '<div class="list-group-item' + (done? ' list-group-item-success': '')+'">';
+  var out = "";
+
+  out += '<div class="panel panel-default"><div class="panel-body">';
   out += '<div class="checkbox"><label>';
   out += '<input type="checkbox" class="test" name="' + context._id  + '" ';
   if(done) { out += "checked" };
-  out += '>' + context.name +'</input>';
-  if (done) { out += "☺"; }
-  out += makeBadge(context);
-  out += '</label><div>';
-  out += "</div>"
+  out += '><h3>' + context.name;
+  out += ' ' + getBadge(context);
+  out += '</h3></input></label><div>';  
 
+  out += "</div></div>"
   return out;
 });
  
@@ -41,7 +42,9 @@ Handlebars.registerHelper('habit', function(context) {
 
 
 
-function makeBadge(habit, which) {
-  var date= Session.get('lastUpdate');
-  return habit.badges.getAttainment(date, habit.dates);  
+function getBadge(habit, which) {
+  var date  = Session.get('lastUpdate');
+  var badge = habit.badges.getAttainment(date, habit.dates);  
+  if (badge === "info") { return ""; }
+  return '<span class="label label-'+badge+'">'+badge+'</span>';
 }
