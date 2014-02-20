@@ -35,7 +35,7 @@ Handlebars.registerHelper('TabClassName', function (route) {
 
 
 function trans(document) {
-  document.badges = Badges.parse(document.badges);
+  //document.badges = Badges.parse(document.badges);
   return document;
 }
 

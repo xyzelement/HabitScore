@@ -34,20 +34,16 @@
 </template>
 
 <template name="habitSelectionTemplate">  
+  <a href="#" class="list-group-item add-item"><b>New Habit</b></a>
   <div class="list-group">
-    <a href="#" class="list-group-item"><b>Modify</b></a>
     {{#each habits}}
       {{{habitButton this}}}
     {{/each}}
   </div>    
-  <div class="list-group">
-    <a href="#" class="list-group-item"><b>Add</b></a>
-    <a href="#" class="list-group-item"><input type="text" id="add-habit" placeholder="New Habit" /></a>
-  </div> 
 </template>
 
 <template name="edit">  
-  
+  {{#if selected}}
   <div class="form-horizontal" role="form" name="edit-form">
     <div class="list-group">
       <a class="list-group-item">
@@ -72,6 +68,7 @@
   </div>
   <a href="#" class="edit-save-badges">Save</a>
   <a href="#" class="edit-delete">Delete</a>
+  {{/if}}
 </template>
 
 

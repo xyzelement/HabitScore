@@ -35,7 +35,8 @@ Template.habitSelectionTemplate.events({'click .edit-selector': function(event,t
 
 
 Template.habitSelectionTemplate.habits = function () {
-  return Habits.find({});
+  var x =Habits.find({})
+  return x;
 };
 
 Handlebars.registerHelper('habitButton', function(habit) {
