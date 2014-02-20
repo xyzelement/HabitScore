@@ -1,33 +1,11 @@
 
 
 
-Template.edit.events({'click .edit-save': function(event,template) {
-  //EMTODO: input validation 
-
-
+Template.edit.events({'click .edit-delete': function(event,template) {
+  //EMTODO: confirm dialog!
   var habit = Session.get("currentlyEdited");
-  habit.name        = $('#edit-habit').val();
-  
-  habit.badges = {good: 
-                    { use:       $('#use_good_badge').attr('checked'),
-                      name:      $('#edit-good-badge').val(),
-                      days1:     $('#edit-good-days1').val(),
-                      days2:     $('#edit-good-days2').val()
-                    },
-                  bad: 
-                    { use:       $('#use_bad_badge').attr('checked'),
-                      name:      $('#edit-bad-badge').val(),
-                      days1:     $('#edit-bad-days1').val(),
-                      days2:     $('#edit-bad-days2').val()
-                    }
-                  };
-  
-  //EMTODO: can this be a single DB op?
-
-  Habits.update({_id: habit._id}, {$set: {name: habit.name}});
-  Habits.update({_id: habit._id}, {$set: {badges: habit.badges}});
-
-  Session.set("currentlyEdited",habit);
+  Habits.remove({_id: habit._id});
+  Session.set("currentlyEdited",null);
 }});
 
 Template.edit.selected = function () {
